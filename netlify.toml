@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  functions = "./dist/functions/bin" # netlify dev uses this to know where to scaffold and serve your functions
+  publish = "./dist"
+
+[dev]
+  command = "npm run dev"
+  functions="./dist/functions/bin"
+  port = 3000 # Port that the dev server will be listening on
+  publish = "dist" # If you use a _red

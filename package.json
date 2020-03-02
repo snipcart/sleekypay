@@ -1,0 +1,44 @@
+{
+  "name": "sleekypay",
+  "version": "1.0.0",
+  "description": "Fake payment gateway integration",
+  "scripts": {
+    "website:dev": "parcel ./src/index.html ./src/assets/*",
+    "website:build": "parcel build ./src/index.html ./src/assets/*",
+    "functions:dev": "concurrently --kill-others \"parcel ./src/functions/*.ts --out-dir dist/functions --target node\" \"parcel ./src/functions/bin/*.ts --out-dir dist/functions/bin --target node\"",
+    "functions:build": "parcel build ./src/functions/*.ts --out-dir dist/functions --target node && parcel build ./src/functions/bin/*.ts --out-dir dist/functions/bin --target node",
+    "build": "npm run website:build && npm run functions:build",
+    "dev": "concurrently --kill-others \"npm run website:dev\" \"npm run functions:dev\"",
+    "start": "netlify dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snipcart/custom-gateway-integration.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snipcart/custom-gateway-integration/issues"
+  },
+  "homepage": "https://github.com/snipcart/custom-gateway-integration#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.40",
+    "@types/uuid": "^3.4.7",
+    "concurrently": "^5.1.0",
+    "netlify": "^3.0.0",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.25.0",
+    "typescript": "^3.7.5",
+    "uuid": "^3.4.0"
+  },
+  "dependencies": {
+    "@types/node-fetch": "^2.5.4",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "cleave.js": "^1.5.3",
+    "node-fetch": "^2.6.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}

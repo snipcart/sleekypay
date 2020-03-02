@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Muli:600,700,800&display=swap");
+
+$color--background: #fafcfc;
+$color--primary: #429bfc;
+$color--complementary: #fc4e42;
+
+$size--unit: 5px;
+
+@mixin layer {
+    padding: $size--unit*4;
+    border-radius: $size--unit;
+    box-shadow: 2px 2px 6px darken($color--background, 2);
+    background-color: white;
+    border: 1px solid darken($color--background, 5);
+    margin-left: $size--unit*3;
+    margin-right: $size--unit*3;
+}
+
+@mixin focus {
+    transition: box-shadow 0.2s, border 0.2s;
+    &:focus {
+        outline: none;
+        box-shadow: 0px 0px 0px 4px transparentize($color--primary, 0.8);
+        border: 1px solid $color--primary;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Muli", serif;
+    font-size: $size--unit*3;
+    font-weight: 600;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: $color--background;
+    color: darken($color--background, 75);
+}
+
+h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    min-height: 100vh;
+    min-width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+        font-size: $size--unit*9;
+        font-family: 'Merriweather', serif;
+        color: darken($color--background, 75);
+        margin-bottom: $size--unit*1;
+    }
+
+    &__subtitle {
+        font-size: $size--unit*3;
+        color: darken($color--background, 20);
+        margin-bottom: $size--unit*4;
+    }
+
+    &__notice {
+        @include layer;
+    }
+
+    
+    &__body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
+    &__footer {
+        padding: $size--unit*3;
+        background-color: #f0f2f2;
+        width: 100%;
+    }
+}
+
+.form {
+    @include layer;
+
+    &__summary {
+        margin-bottom: $size--unit*3;
+    }
+
+    &__container {
+        max-width: 300px;
+        display: grid;
+        grid-template-areas: 
+        "number number"
+        "expiry cvv"
+        "state state"
+        "state-descriptor-code state-descriptor-msg"
+        "button button";
+        grid-gap: $size--unit*3;
+    }
+
+    &__title {
+        font-size: $size--unit*9;
+        font-family: 'Merriweather', serif;
+        color: darken($color--background, 75);
+        margin-bottom: $size--unit*1;
+    }
+
+    &__subtitle {
+        font-size: $size--unit*3;
+        color: darken($color--background, 20);
+        margin-bottom: $size--unit*4;
+    }
+
+    &__input {
+        @include focus;
+
+        width: 100%;
+        padding: $size--unit*2;
+        padding-left: $size--unit*4;
+        padding-right: $size--unit*4;
+        border-radius: 3px;
+        border: 1px solid darken($color--background, 5);
+        font-weight: 600;
+
+        &--number {
+            grid-area: number;
+        }
+
+        &--expiry {
+            grid-area: expiry;
+        }
+
+        &--cvv {
+            grid-area: cvv;
+        }
+
+        &--state {
+            grid-area: state;
+        }
+
+        &--state-descriptor-code {
+            grid-area: state-descriptor-code;
+        }
+        
+        &--state-descriptor-msg {
+            grid-area: state-descriptor-msg;
+        }
+    }
+
+    &__row {
+        margin-bottom: $size--unit*2;
+        grid-column-gap: $size--unit*3;
+    }
+
+    &__button {
+        all: unset;
+        grid-area: button;
+        font-weight: 700;
+        color: white;
+        background-color: $color--primary;
+        border: 1px solid #3393fc;
+        text-shadow: 2px 2px 5px #3393fc;
+        border-radius: 2px;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-align: center;
+        padding: $size--unit*2.5;
+        padding-left: $size--unit*5;
+        padding-right: $size--unit*5;
+
+        transition: background-color 0.25s, transform 0.25s, box-shadow 0.25s;
+        &:hover, &:focus {
+            background-color: darken($color--primary, 5);
+            transform: translateY(-1px);
+            box-shadow: 0px 3px 5px transparentize(darken($color--primary, 30), 0.9);
+        }
+    }
+}
+
+.summary {
+    &__item {
+       display: flex;
+       justify-content: space-between;
+       margin-bottom: $size--unit*1;
+       &--bold {
+           font-weight: 800;
+       }
+    }
+}
+
+.link {
+    color: darken($color--background, 65);
+    text-decoration: none;
+
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        height: 16px;
+        margin-right: $size--unit*2;
+        path { fill: darken($color--background, 65) }
+    }
+}
+
+hr {
+    margin-top: $size--unit*4;
+    margin-bottom: $size--unit*4;
+    border: none;
+    border-bottom: 1px solid darken($color--background, 5);
+}

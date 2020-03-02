@@ -1,0 +1,10 @@
+node_modules
+dist
+*.orig
+.env
+
+# Parcel cache folder
+.cache
+
+# Local Netlify folder
+.netlify
