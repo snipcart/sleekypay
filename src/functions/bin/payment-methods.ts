@@ -20,7 +20,7 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
   const SITE_URL = process.env.URL || 'http://localhost:3000';
 
   // Validate that the request is coming from Snipcart
-  const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`)
+  const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.publicToken}`)
 
   // Return 404 if the request is not from Snipcart
   if (!response.ok) return {
