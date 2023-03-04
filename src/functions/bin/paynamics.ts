@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 exports.handler = async function(event, context, callback) {   
     // Get request's body
     const request = JSON.parse(event.body)
