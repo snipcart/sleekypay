@@ -23,7 +23,7 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
 
   // Validate that the request is coming from Snipcart
   const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`)
-
+  console.log('sleekypay', response)
   // Return 404 if the request is not from Snipcart
   if (!response.ok) return {
     statusCode: 404,
