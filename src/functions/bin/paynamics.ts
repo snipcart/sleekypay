@@ -22,8 +22,9 @@ exports.handler = async function(event, context, callback) {
     }]
 
     // Return successful status code and available payment methods
-    return {
-        statusCode: 200,
-        body: JSON.stringify(paymentMethodList)
-    };
+    // return {
+    //     statusCode: 200,
+    //     body: JSON.stringify(paymentMethodList)
+    // };
+    console.log(response)
 }
