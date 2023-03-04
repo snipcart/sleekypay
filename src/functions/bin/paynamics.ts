@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 exports.handler = async function(event, context, callback) {   
     // Get request's body
     const request = JSON.parse(event.body)
-
+    console.log("Arvin")
     // Validate that the request is coming from Snipcart
     const response = await fetch(`https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`)
 
