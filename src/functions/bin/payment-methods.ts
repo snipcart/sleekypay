@@ -15,8 +15,8 @@ if (!process.env.PRODUCTION) {
 
 exports.handler = async function (event: APIGatewayEvent, context: Context, callback: Callback) {
   // Get request's body
-  const trimmedBody = event.body.trim()
-  const request = JSON.parse(trimmedBody)
+  console.log('event.body', event.body)
+  const request = JSON.parse(event.body)
   const API_URL = process.env.API_URL || 'https://localhost:12666';
   const SITE_URL = process.env.URL || 'http://localhost:3000';
 
