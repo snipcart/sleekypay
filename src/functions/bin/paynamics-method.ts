@@ -18,10 +18,8 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
   // Get request's body
   console.log('event.body', event.body)
   const request = JSON.parse(event.body)
-//   const API_URL = process.env.API_URL || 'https://localhost:12666';
-  const API_URL = 'https://sleekypay.netlify.app';
-//   const SITE_URL = process.env.URL || 'http://localhost:3000';
-  const SITE_URL = 'https://api.payserv.net/v1/rpf/transactions/rpf';
+  const API_URL = process.env.API_URL || 'https://localhost:12666';
+  const SITE_URL = process.env.URL || 'http://localhost:3000';
 
   // Validate that the request is coming from Snipcart
   const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`)
