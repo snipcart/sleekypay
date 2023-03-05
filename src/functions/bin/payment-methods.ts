@@ -12,7 +12,7 @@ interface SnipcartPaymentMethod {
 if (!process.env.PRODUCTION) {
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0' // For local development
 }
-console.log('process.env.PRODUCTION', process.env.PRODUCTION)
+// console.log('process.env.PRODUCTION', process.env.PRODUCTION)
 
 exports.handler = async function (event: APIGatewayEvent, context: Context, callback: Callback) {
   // Get request's body
@@ -22,7 +22,7 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
   const SITE_URL = process.env.URL || 'http://localhost:3000';
 
   // Validate that the request is coming from Snipcart
-  const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`)
+  const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.publicToken}`)
   // console.log('sleekypay', response)
   // Return 404 if the request is not from Snipcart
   if (!response.ok) return {
