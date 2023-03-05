@@ -18,13 +18,13 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
   // Get request's body
 //   console.log('event.body', event.body)
   const request = JSON.parse(event.body)
-  console.log('paynamics-method>line 20>request', request)
+//   console.log('paynamics-method>line 20>request', request)
   const API_URL = process.env.API_URL || 'https://localhost:12666';
-  const SITE_URL = process.env.URL || 'http://localhost:3000';
+  const SITE_URL = process.env.SITE_URL || 'http://localhost:3000';
 
   // Validate that the request is coming from Snipcart
   const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/validate?publicToken=${request.publicToken}`)
-  console.log('paynamics-method>line 27>response', response)
+//   console.log('paynamics-method>line 27>response', response)
   // Return 404 if the request is not from Snipcart
   if (!response.ok) return {
     statusCode: 404,

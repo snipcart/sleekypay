@@ -18,3 +18,16 @@ The website will be live on `localhost:1234/index.html` while netlify functions 
 ```
 npm run build
 ```
+
+
+
+# Paynamics
+
+
+## netlify.com
+
+API_URL = `https://payment.snipcart.com`
+SITE_URL = `https://api.payserv.net/v1/rpf/transactions/rpf`
+BEARER_TOKEN = from postman
+
+##
