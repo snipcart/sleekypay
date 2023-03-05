@@ -1,4 +1,4 @@
-var CryptoJS = require('crypto-js');
+import CryptoJS from "CryptoJS";
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", "Basic YWNjZXNzVHJ2TDQ6M25CNjdPWkZxZ2g0");

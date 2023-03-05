@@ -12,7 +12,7 @@ interface SnipcartPaymentMethod {
 if (!process.env.PRODUCTION) {
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0' // For local development
 }
-console.log('process.env.PRODUCTION', process.env.PRODUCTION)
+// console.log('process.env.PRODUCTION', process.env.PRODUCTION);
 
 exports.handler = async function (event: APIGatewayEvent, context: Context, callback: Callback) {
   // Get request's body

@@ -13,19 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snipcart/sleekypay.git"
+    "url": "git+https://github.com/espidesigns/paynamics-method.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/snipcart/sleekypay/issues"
+    "url": "https://github.com/espidesigns/paynamics-method/issues"
   },
-  "homepage": "https://github.com/snipcart/sleekypay#readme",
+  "homepage": "https://github.com/espidesigns/paynamics-method#readme",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.40",
     "@types/uuid": "^3.4.7",
     "concurrently": "^5.1.0",
+    "cryptojs": "^2.5.3",
     "netlify": "^3.0.0",
     "parcel-bundler": "^1.8.1",
     "sass": "^1.25.0",
