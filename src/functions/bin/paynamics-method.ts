@@ -37,6 +37,7 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
     name: 'Paynamics',
     // checkoutUrl: `${SITE_URL}/index.html`,
     checkoutUrl: SITE_URL,
+    iconUrl: `https://paymentrequest-custom-gateway.snipcart.vercel.app/google_pay.png`
   }]
 
   // Return available payment methods
