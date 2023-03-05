@@ -27,23 +27,23 @@ async () => {
         "notification_url": "https://www.paynamics.com/",
         "response_url": "https://www.paynamics.com/",
         "cancel_url": "https://www.paynamics.com/",
-        "pchannel": " ",
-        "pmethod": " ",
+        "pchannel": "",
+        "pmethod": "",
         "collection_method": "single_pay",
         "payment_notification_status": "1",
         "payment_notification_channel": "1",
-        "amount": "101.50",
+        "amount": "111.50",
         "currency": "PHP",
         "trx_type": "sale",
         "signature": ""
     },
     "billing_info": {
-        "address1": "First Street",
-        "address2": "H.V. dela Costa Street",
-        "city": "Makati",
-        "state": "Metro Manila",
-        "country": "Philippines",
-        "zip": "1227"
+        "billing_address1": "First Street",
+        "billing_address2": "H.V. dela Costa Street",
+        "billing_city": "Makati",
+        "billing_state": "Metro Manila",
+        "billing_country": "Philippines",
+        "billing_zip": "1227"
     },
     "shipping_info": {
         "shipping_address1": "First Street",
@@ -65,17 +65,24 @@ async () => {
     },
     "order_details": {
         "orders": [
-            {
-                "itemname": "Test Product",
-                "quantity": 1,
-                "unitprice": "101.50",
-                "totalprice": "101.50"
-            }
+          {
+            "itemname": "Test Product",
+            "quantity": 1,
+            "unitprice": "111.50",
+            "totalprice": "111.50"
+          },
+          {
+            "itemname": "Convenience Fee",
+            "quantity": 1,
+            "unitprice": "10.00",
+            "totalprice": "10.00",
+            "service_charge": true
+          }
         ],
-        "subtotalprice": "101.50",
+        "subtotalprice": "111.50",
         "shippingprice": "0.00",
         "discountamount": "0.00",
-        "totalorderamount": "101.50"
+        "totalorderamount": "111.50"
     }
   }
 
