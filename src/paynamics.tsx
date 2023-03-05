@@ -34,6 +34,7 @@ function App() {
         return <div className="app__notice">Preparing order...</div>
     }
   }
+  getContentByStatus(status)
   /** /
   return (
     <div className="app">
