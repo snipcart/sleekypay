@@ -23,66 +23,66 @@ async () => {
 
   var payload = {
     "transaction": {
-        "request_id": "AT-"+ mode +"-RPF-"+ timestamp,
-        "notification_url": "https://www.paynamics.com/",
-        "response_url": "https://www.paynamics.com/",
-        "cancel_url": "https://www.paynamics.com/",
-        "pchannel": "",
-        "pmethod": "",
-        "collection_method": "single_pay",
-        "payment_notification_status": "1",
-        "payment_notification_channel": "1",
-        "amount": "111.50",
-        "currency": "PHP",
-        "trx_type": "sale",
-        "signature": ""
+      "request_id": "AT-"+ mode +"-RPF-"+ timestamp,
+      "notification_url": "https://www.paynamics.com/",
+      "response_url": "https://www.paynamics.com/",
+      "cancel_url": "https://www.paynamics.com/",
+      "pmethod": "",
+      "pchannel": "",
+      "collection_method": "single_pay",
+      "payment_notification_status": "1",
+      "payment_notification_channel": "1",
+      "amount": "111.50",
+      "currency": "USD",
+      "trx_type": "sale",
+      "signature": ""
     },
     "billing_info": {
-        "billing_address1": "First Street",
-        "billing_address2": "H.V. dela Costa Street",
-        "billing_city": "Makati",
-        "billing_state": "Metro Manila",
-        "billing_country": "Philippines",
-        "billing_zip": "1227"
+      "billing_address1": "First Street",
+      "billing_address2": "H.V. dela Costa Street",
+      "billing_city": "Makati",
+      "billing_state": "Metro Manila",
+      "billing_country": "PH",
+      "billing_zip": "1227"
     },
     "shipping_info": {
-        "shipping_address1": "First Street",
-        "shipping_address2": "",
-        "shipping_city": "Quezon City",
-        "shipping_state": "Metro Manila Area",
-        "shipping_country": "PH",
-        "shipping_zip": "1229"
+      "shipping_address1": "First Street",
+      "shipping_address2": "",
+      "shipping_city": "Quezon City",
+      "shipping_state": "Metro Manila Area",
+      "shipping_country": "PH",
+      "shipping_zip": "1229"
     },
     "customer_info": {
-        "fname": "Jan",
-        "lname": "Dae",
-        "mname": "",
-        "email": "jandae@gmal.com",
-        "phone": "09171234567",
-        "mobile": "09171234567",
-        "dob": "",
-        "signature": ""
+      "fname": "Jan",
+      "lname": "Dae",
+      "mname": "",
+      "email": "lymdul@gmail.com",
+      "phone": "09171234567",
+      "mobile": "09171234567",
+      "dob": "",
+      "signature": ""
     },
     "order_details": {
-        "orders": [
-          {
-            "itemname": "Test Product",
-            "quantity": 1,
-            "unitprice": "111.50",
-            "totalprice": "111.50"
-          },
-          {
-            "itemname": "Convenience Fee",
-            "quantity": 1,
-            "unitprice": "10.00",
-            "totalprice": "10.00",
-            "service_charge": true
-          }
-        ],
-        "subtotalprice": "111.50",
-        "shippingprice": "0.00",
-        "discountamount": "0.00",
-        "totalorderamount": "111.50"
+      "orders": [
+        {
+          "itemname": "Test Product",
+          "quantity": 1,
+          "unitprice": "101.50",
+          "totalprice": "101.50"
+        },
+        {
+          "itemname": "Convenience Fee",
+          "quantity": 1,
+          "unitprice": "10.00",
+          "totalprice": "10.00",
+          "service_charge": true
+        }
+      ],
+      "subtotalprice": "111.50",
+      "shippingprice": "0.00",
+      "discountamount": "0.00",
+      "totalorderamount": "111.50"
     }
   }
 
@@ -94,16 +94,6 @@ async () => {
   var jsonData = payload;
   var merchantid = '000000021122575A1796';
   var mkey = 'F6857B71681EF7E482F30B251558AADF';
-  var request_id = jsonData.transaction.request_id ? jsonData.transaction.request_id : '';
-  var notification_url = jsonData.transaction.notification_url ? jsonData.transaction.notification_url : '';
-  var response_url = jsonData.transaction.response_url ? jsonData.transaction.response_url : '';
-  var cancel_url = jsonData.transaction.cancel_url ? jsonData.transaction.cancel_url : '';
-  var pmethod = jsonData.transaction.pmethod ? jsonData.transaction.pmethod : '';
-  var collection_method = jsonData.transaction.collection_method ? jsonData.transaction.collection_method : '';
-  var amount = jsonData.transaction.amount ? jsonData.transaction.amount : '';
-  var currency = jsonData.transaction.currency ? jsonData.transaction.currency : '';
-  var payment_notification_status = jsonData.transaction.payment_notification_status ? jsonData.transaction.payment_notification_status : '';
-  var payment_notification_channel = jsonData.transaction.payment_notification_channel ? jsonData.transaction.payment_notification_channel : '';
 
 
   var rawTrx =
