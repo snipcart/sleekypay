@@ -38,6 +38,7 @@
     "@types/react-dom": "^16.9.5",
     "bindings": "^1.5.0",
     "cleave.js": "^1.5.3",
+    "crypto-js": "^4.1.1",
     "node-fetch": "^2.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
