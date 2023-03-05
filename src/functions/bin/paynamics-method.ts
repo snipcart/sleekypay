@@ -35,8 +35,8 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
   let paymentMethodList: SnipcartPaymentMethod[] = [{
     id: 'paynamics',
     name: 'Paynamics',
-    // checkoutUrl: `${SITE_URL}/index.html`,
-    checkoutUrl: SITE_URL,
+    checkoutUrl: `${SITE_URL}/paynamics.html`,
+    // checkoutUrl: SITE_URL,
     // iconUrl: `https://paymentrequest-custom-gateway.snipcart.vercel.app/google_pay.png`
   }]
 
