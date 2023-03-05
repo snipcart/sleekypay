@@ -1,5 +1,7 @@
-# SleekyPay
-SleekyPay is a fake payment gateway to showcase Snipcart's custom payment gateway integration functionality.
+# Paynamics
+Paynamics is a payment gateway for Philippines transactions
+
+This app is based from SleekPay, a fake payment gateway to showcase Snipcart's custom payment gateway integration functionality. 
 
 ## Local development
 
@@ -19,15 +21,15 @@ The website will be live on `localhost:1234/index.html` while netlify functions 
 npm run build
 ```
 
+# Paynamics Method 
 
+## in app.netlify.com
 
-# Paynamics
+API_URL = `https://payment.snipcart.com` is SnipCart's API Hostname
+SITE_URL = `https://api.payserv.net/v1/rpf/transactions/rpf` is Paynamics API Endpoint
+BEARER_TOKEN = grab from postman+paynamics
 
+## in snipcart
 
-## netlify.com
-
-API_URL = `https://payment.snipcart.com`
-SITE_URL = `https://api.payserv.net/v1/rpf/transactions/rpf`
-BEARER_TOKEN = from postman
-
-##
+PAYMENT METHODS TEST URL
+https://master--paynamics-method.netlify.app/.netlify/functions/paynamics-method
