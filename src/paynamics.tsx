@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { SHA512, enc } from 'crypto-js'; 
 import fetch from 'node-fetch';
 
@@ -81,12 +80,6 @@ function toIsoString(date: Date) {
   );
 }
 
-const Paynamics = () => {
-  const [payload, setPayload] = useState<TransactionPayload | null>(null);
-
-  useEffect(() => {
-    const dt = new Date();
-    const timestamp = toIsoString(dt);
 
     const transactionPayload: TransactionPayload = {
       "transaction": {
@@ -192,7 +185,7 @@ const Paynamics = () => {
     fetch(PAYNAMICS_ENDPOINT, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${BEARER_TOKEN}`,
+        'Authorization': `Bearer ${BEARER_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: payloadStringified,
@@ -210,8 +203,7 @@ const Paynamics = () => {
     .catch(error => {
       console.error('There has been a problem with your fetch operation:', error);
     });
-  });
-}
+
 
 
 
