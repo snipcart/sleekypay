@@ -12,7 +12,7 @@ function App() {
   const [status, setStatus] = React.useState<Status>(Status.Loading)
 
   const PAYNAMICS_ENDPOINT = "https://api.payserv.net/v1/rpf/transactions/rpf";
-  const BEARER_TOKEN = "YWNjZXNzVHJ2TDQ6M25CNjdPWkZxZ2g0"
+  const BEARER_TOKEN = process.env.BEARER_TOKEN
 
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Basic "+ BEARER_TOKEN);
