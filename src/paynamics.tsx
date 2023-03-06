@@ -1,26 +1,27 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Status, PaymentSession } from "./interfaces";
 import { SHA512, enc } from 'crypto-js'; 
-import {Redirect} from 'react-router-dom';
+import fetch from 'node-fetch';
 
 console.log('before paynamicsHandler');
 
-function App() {
+exports.handler = async function() {
   console.log('inside paynamicsHandler');
   const [paymentSession, setPaymentSession] = React.useState<PaymentSession>();
   const [status, setStatus] = React.useState<Status>(Status.Loading)
 
   const PAYNAMICS_ENDPOINT = "https://api.payserv.net/v1/rpf/transactions/rpf";
   const BEARER_TOKEN = process.env.BEARER_TOKEN
-
+  const MERCHANT_ID = process.env.MERCHANT_ID;
+  const MKEY = process.env.MKEY;
+  const API_URL = process.env.API_URL || 'https://payment.snipcart.com';
+    
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Basic "+ BEARER_TOKEN);
   myHeaders.append("Content-Type", "application/json");
 
   async function fetchPaymentSession() {
     const jwt = new URLSearchParams(window.location.search).get('publicToken')
-    const API_URL = process.env.API_URL || 'https://payment.snipcart.com';
     const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/payment-session?publicToken=${jwt}`);
 
     if (!response.ok) {
@@ -33,18 +34,6 @@ function App() {
   }
 
   React.useEffect(() => { fetchPaymentSession() }, [])
-
-  function getContentByStatus(status: Status) {
-    switch (status) {
-      case Status.Failed:
-        return <div className="app__notice">Failed to retrieve invoice, please try again later.</div>
-      case Status.Loaded:
-        return <Redirect to={PAYNAMICS_ENDPOINT} />
-      case Status.Loading:
-        return <div className="app__notice">Preparing order...</div>
-    }
-  }
-
 
   function toIsoString(date) {
     const pad = function(num) {
@@ -62,9 +51,7 @@ function App() {
   let timestamp = toIsoString(dt);
   // console.log(timestamp);
 
-  // const mode = 'test';
-
-  var payload = {
+  let payload = {
     "transaction": {
       "request_id": "PNXD-T-RPF-"+ timestamp,
       "notification_url": "/notif_url",
@@ -129,17 +116,10 @@ function App() {
     }
   }
 
-
   const payloadStringified = JSON.stringify(payload);
 
-
-  // const jsonData = JSON.parse(payload);
-  const merchantid = process.env.MERCHANT_ID;
-  const mkey = process.env.MKEY;
-
-
-  const rawTrx =
-    merchantid +
+  let rawTrx =
+    MERCHANT_ID +
     payload.transaction.request_id +
     payload.transaction.notification_url +
     payload.transaction.response_url +
@@ -149,8 +129,8 @@ function App() {
     payload.transaction.currency +
     payload.transaction.payment_notification_status +
     payload.transaction.payment_notification_channel +
-    mkey;
-  const raw =
+    MKEY;
+  let raw =
     payload.customer_info.fname +
     payload.customer_info.lname +
     payload.customer_info.mname +
@@ -158,20 +138,8 @@ function App() {
     payload.customer_info.phone +
     payload.customer_info.mobile +
     payload.customer_info.dob +
-    mkey;
+    MKEY;
 
-  /** /
-  async function sha512(str) {
-  let encoder = new TextEncoder();
-  let data = encoder.encode(str);
-  let hash = await crypto.subtle.digest("SHA-512", data);
-  return Array.from(new Uint8Array(hash))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-  }
-  payload.transaction.signature = await sha512(rawTrx);
-  payload.customer_info.signature = await sha512(raw);
-  /**/
   const signatureTrx = enc.Hex.stringify(SHA512(rawTrx));
   const signature = enc.Hex.stringify(SHA512(raw));
   payload.transaction.signature = signatureTrx;
@@ -190,27 +158,15 @@ function App() {
     // redirect: 'follow'
   };
 
-
-
-    return (
-      <div className="app">
-        <div className="app__body">
-          <h1 className="app__title">Paynamics</h1>
-          <h2 className="app__subtitle">Smooth online transactions</h2>
-          {getContentByStatus(status)}
-        </div>
-        <footer className="app__footer">
-          <a href={paymentSession?.paymentAuthorizationRedirectUrl || ""} className="link">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.013 512.013"><path d="M512.013 240.086H54.573l132.64-132.64-22.56-22.72-160 160c-6.204 6.241-6.204 16.319 0 22.56l160 160 22.56-22.56-132.64-132.64h457.44v-32z" /></svg>
-            Go back to store
-          </a>
-        </footer>
-      </div>
-    )
+  fetch(PAYNAMICS_ENDPOINT, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      console.log('inside fetch');
+    })
+    .catch(error => console.error(error))
 }
 
 
 
-
-const rootNode = document.getElementById("root")
-ReactDOM.render(<App />, rootNode)
+console.log('after paynamicsHandler');

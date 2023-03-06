@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="app">
       <div className="app__body">
-        <h1 className="app__title">Paynamics</h1>
+        <h1 className="app__title">SleekyPay</h1>
         <h2 className="app__subtitle">Smooth online transactions</h2>
         {getContentByStatus(status)}
       </div>
