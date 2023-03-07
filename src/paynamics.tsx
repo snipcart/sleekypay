@@ -7,6 +7,11 @@ const MERCHANT_ID = process.env.MERCHANT_ID;
 const MKEY = process.env.MKEY;
 const API_URL = process.env.API_URL || 'https://payment.snipcart.com';
   
+console.log(PAYNAMICS_ENDPOINT)
+console.log(BEARER_TOKEN)
+console.log(MERCHANT_ID)
+console.log(MKEY)
+console.log(API_URL)
 console.log('before paynamicsHandler');
 
 interface TransactionPayload {
@@ -79,6 +84,8 @@ function toIsoString(date: Date) {
     pad(date.getSeconds())
   );
 }
+let dt = new Date();
+let timestamp = toIsoString(dt);
 
 
     const transactionPayload: TransactionPayload = {
