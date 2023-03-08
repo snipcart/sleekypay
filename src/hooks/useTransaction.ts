@@ -53,7 +53,7 @@ export const useTransaction = () => {
     setLoading(true);
     try {
       const response = await client(
-        RESOURCE,
+        `${process.env.REACT_APP_PAYNAMICS_BASE_URL}/${RESOURCE}`,
         'POST',
         {
           transaction: {

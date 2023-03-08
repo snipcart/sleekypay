@@ -26,8 +26,7 @@ npm run build
 ## in app.netlify.com
 
 API_URL = `https://payment.snipcart.com` is SnipCart's API Hostname
-SITE_URL = `https://api.payserv.net/v1/rpf/transactions/rpf` is Paynamics API Endpoint
-BEARER_TOKEN = grab from postman+paynamics
+`https://api.payserv.net/v1/rpf/transactions/rpf` is Paynamics API Endpoint
 
 ## in snipcart
 
