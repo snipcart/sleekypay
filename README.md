@@ -32,4 +32,4 @@ BEARER_TOKEN = grab from postman+paynamics
 ## in snipcart
 
 PAYMENT METHODS TEST URL
-https://master--paynamics-method.netlify.app/.netlify/functions/paynamics-method
+https://paynamics-method.netlify.app/.netlify/functions/paynamics-method

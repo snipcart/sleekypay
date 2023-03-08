@@ -32,9 +32,10 @@ exports.handler = async function (event: APIGatewayEvent, context: Context, call
 
   // Create payment method list
   let paymentMethodList: SnipcartPaymentMethod[] = [{
-    id: 'sleeky_pay',
-    name: 'SleekyPay',
-    checkoutUrl: `${SITE_URL}/index.html`,
+    id: 'paynamics',
+    name: 'Paynamics',
+    // checkoutUrl: `${SITE_URL}/index.html`,
+    checkoutUrl: SITE_URL
   }]
 
   // Return available payment methods
