@@ -2,6 +2,7 @@
   "name": "paynamics-method",
   "version": "1.0.0",
   "description": "Paynamics payment gateway integration for Snipcart; from SleekyPay custom gateway repo",
+  "private": true,
   "scripts": {
     "website:dev": "parcel ./src/*.html ./src/assets/*",
     "website:build": "parcel build ./src/*.html ./src/assets/*",
@@ -55,5 +56,23 @@
     "cleave.js": "^1.5.3",
     "node-fetch": "^2.6.0",
     "react-router-dom": "^6.8.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
