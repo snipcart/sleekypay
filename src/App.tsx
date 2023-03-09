@@ -10,11 +10,15 @@ function App() {
     loading,
     response,
   } = useTransaction();
-
+/** /
   const handleClick = () => {
     // TODO: Update with actual data
     create(transactionData)
   }
+/**/
+  useEffect(() => {
+    create(transactionData);
+  }, []);
 
   // TODO: Refactor to not use `useEffect`
   useEffect(() => {
@@ -25,7 +29,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={handleClick}>Test</button>
+      {/* <button onClick={handleClick}>Test</button> */}
       {loading && (<p>Loading...</p>)}
     </div>
   );
