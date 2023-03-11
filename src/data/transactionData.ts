@@ -1,11 +1,11 @@
-import { Context, Callback, APIGatewayEvent } from "aws-lambda";
-
 import { generate } from 'short-uuid';
+
 import { BillingInfo } from '../types/billingInfo';
 import { CustomerInfo } from '../types/customerInfo';
 import { OrderDetails } from '../types/orderDetails';
 import { ShippingInfo } from '../types/shippingInfo';
 import { Transaction } from '../types/transaction';
+import { Context, Callback, APIGatewayEvent } from "aws-lambda";
 
 interface TransactionData {
   transaction: Partial<Transaction>;
@@ -16,74 +16,110 @@ interface TransactionData {
 }
 
 console.log('before payload');
-exports.handler = async function (event: APIGatewayEvent, context: Context, callback: Callback) {
-  console.log('event.body', event.body);
-  const requestBody = JSON.parse(event.body);
-  console.log('requestBody', requestBody);
+export let transactionData: TransactionData = {
+  transaction: {
+    request_id: generate(),
+    notification_url: "https://www.paynamics.com/notify",
+    response_url: "https://www.paynamics.com/response",
+    cancel_url: "https://www.paynamics.com/cancel",
+    pchannel: "",
+    pmethod: "",
+    collection_method: "single_pay",
+    payment_notification_status: "1",
+    payment_notification_channel: "1",
+    amount: "",
+    currency: "",
+    trx_type: "",
+  },
+  billing_info: {
+    billing_address1: "",
+    billing_address2: "",
+    billing_city: "",
+    billing_state: "",
+    billing_country: "",
+    billing_zip: ""
+  },
+  shipping_info: {
+    shipping_address1: "",
+    shipping_address2: "",
+    shipping_city: "",
+    shipping_state: "",
+    shipping_country: "",
+    shipping_zip: ""
+  },
+  customer_info: {
+    fname: "",
+    lname: "",
+    mname: "",
+    email: "",
+    phone: "",
+    mobile: "",
+    dob: "",
+  },
+  order_details: {
+    orders: [
+      {
+        itemname: "",
+        quantity: 0,
+        unitprice: "",
+        totalprice: ""
+      }
+    ],
+    subtotalprice: "",
+    shippingprice: "",
+    discountamount: "",
+    totalorderamount: ""
+  }
+}
 
-  let transactionData: TransactionData = {
+console.log('Pristine Transaction Data:', transactionData);
 
-    transaction: {
-      request_id: generate(),
-      notification_url: "https://www.paynamics.com/notify",
-      response_url: "https://www.paynamics.com/response",
-      cancel_url: "https://www.paynamics.com/cancel",
-      pchannel: "",
-      pmethod: "",
-      collection_method: "single_pay",
-      payment_notification_status: "1",
-      payment_notification_channel: "1",
-      amount: "111.50",
-      currency: requestBody.invoice.currency,
-      trx_type: "sale",
-    },
-    billing_info: {
-      billing_address1: requestBody.invoice.billingAddress.streetAndNumber,
-      billing_address2: "H.V. dela Costa Street",
-      billing_city: "Makati",
-      billing_state: "Metro Manila",
-      billing_country: "PH",
-      billing_zip: "1227"
-    },
-    shipping_info: {
-      shipping_address1: requestBody.invoice.billingAddress.streetAndNumber,
-      shipping_address2: "",
-      shipping_city: "Quezon City",
-      shipping_state: "Metro Manila Area",
-      shipping_country: "PH",
-      shipping_zip: "1229"
-    },
-    customer_info: {
-      fname: "Jan",
-      lname: "Dae",
-      mname: "",
-      email: "jandae@gmal.com",
-      phone: "09171234567",
-      mobile: "09171234567",
-      dob: "",
-    },
-    order_details: {
-      orders: [
-        {
-          itemname: "Test Product",
-          quantity: 1,
-          unitprice: "101.50",
-          totalprice: "101.50"
-        },
-        {
-          itemname: "Convenience Fee",
-          quantity: 1,
-          unitprice: "10.00",
-          totalprice: "10.00",
-          servicecharge: true
-        }
-      ],
-      subtotalprice: "111.50",
-      shippingprice: "0.00",
-      discountamount: "0.00",
-      totalorderamount: "111.50"
-    }
+export const handler = async (event: APIGatewayEvent, context: Context, callback: Callback) => {
+  try {
+    const invoice = await JSON.parse(event.body!).invoice;
+    console.log('invoice', invoice);
+    
+    // Populate transactionData fields with invoice values
+    const txn = transactionData.transaction;
+    const billing_info = transactionData.billing_info;
+    const shipping_info = transactionData.shipping_info;
+    const customer_info = transactionData.customer_info;
+    const order_details = transactionData.order_details;
+
+    txn.amount = invoice.amount;
+    txn.currency = invoice.currency.toUpperCase();
+    txn.trx_type = "sale";
+    
+    billing_info.billing_address1 = invoice.billingAddress.streetAndNumber;
+    billing_info.billing_city = invoice.billingAddress.city;
+    billing_info.billing_country = invoice.billingAddress.country;
+    billing_info.billing_zip = invoice.billingAddress.postalCode;
+
+    shipping_info.shipping_address1 = invoice.shippingAddress.streetAndNumber;
+    shipping_info.shipping_city = invoice.shippingAddress.city;
+    shipping_info.shipping_country = invoice.shippingAddress.country;
+    shipping_info.shipping_zip = invoice.shippingAddress.postalCode;
+
+    customer_info.fname = invoice.email.split('@')[0];
+    customer_info.email = invoice.email;
+    customer_info.phone = invoice.phoneNumber;
+    
+    order_details.orders = invoice.items.map((item: { name: any; quantity: any; unitPrice: any; amount: any; }) => ({
+      itemname: item.name,
+      quantity: item.quantity,
+      unitprice: item.unitPrice,
+      totalprice: item.amount
+    }));
+    order_details.subtotalprice = invoice.amount;
+    order_details.totalorderamount = invoice.amount;
+
+    console.log('Updated Transaction Data:', transactionData);
+
+  } catch(e){
+    console.error(e);
   }
 
-  return transactionData;
 }
+
+console.log('after payload');
+
