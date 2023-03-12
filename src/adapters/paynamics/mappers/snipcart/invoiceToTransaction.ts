@@ -61,7 +61,7 @@ export const invoiceToTransaction = ({
         itemname: name,
         quantity,
         unitprice: unitPrice?.toString() ?? "0",
-        totalPrice: itemAmount?.toString() ?? "0",
+        totalprice: itemAmount?.toString() ?? "0",
         servicecharge: false,
       })),
       subtotalprice: amount.toString(),
