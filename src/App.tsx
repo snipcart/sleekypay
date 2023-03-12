@@ -1,33 +1,14 @@
 import React, { useEffect, useState } from 'react';
-// import { useEffect } from 'react';
-// import './App.css';
-// import { transactionData } from './data/transactionData';
 import { useTransaction } from './hooks/useTransaction';
-import { Status, PaymentSession } from "./interfaces";
-// import Form from "./components/Form";
-import { generate } from 'short-uuid';
+import { PaymentSession, Status } from "./interfaces";
 
-import { BillingInfo } from './types/billingInfo';
-import { CustomerInfo } from './types/customerInfo';
-import { OrderDetails } from './types/orderDetails';
-import { ShippingInfo } from './types/shippingInfo';
-import { Transaction } from './types/transaction';
-
-interface TransactionData {
-  transaction: Partial<Transaction>;
-  billing_info: Partial<BillingInfo>;
-  shipping_info: Partial<ShippingInfo>;
-  customer_info: Partial<CustomerInfo>;
-  order_details: Partial<OrderDetails>;
-}
-
+import { invoiceToTransaction } from './adapters/paynamics/mappers/snipcart/invoiceToTransaction';
 
 function App() {
-  // const {
-  //   create,
-  //   loading,
-  //   response,
-  // } = useTransaction();
+  const {
+    create,
+    response,
+  } = useTransaction();
 
   const [paymentSession, setPaymentSession] = useState<PaymentSession>();
   const [status, setStatus] = useState<Status>(Status.Loading)
@@ -37,7 +18,6 @@ function App() {
     const API_URL = process.env.API_URL || 'https://localhost:12666';
     const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/payment-session?publicToken=${jwt}`);
 
-    // setPaymentSession(response)
     if (!response.ok) {
       setStatus(Status.Failed)
       return
@@ -47,14 +27,19 @@ function App() {
     setStatus(Status.Loaded)
   }
 
-
-
   useEffect(() => { fetchPaymentSession() }, []);
   useEffect(() => {
-    if (!!paymentSession) {
-      console.log({ paymentSession })
+    if (!!paymentSession && !response) {
+      create(invoiceToTransaction(paymentSession.invoice))
     }
-  }, [paymentSession])
+  }, [paymentSession, create, response])
+
+  // TODO: Refactor to not use `useEffect`
+  useEffect(() => {
+    if(!!response?.redirect_url) {
+      window.location.replace(response.redirect_url)
+    }
+  }, [response])
 
 
   function getContentByStatus(status: Status) {
@@ -68,12 +53,6 @@ function App() {
     }
   }
 
-  // TODO: Refactor to not use `useEffect`
-  // useEffect(() => {
-  //   if(!!response?.redirect_url) {
-  //     window.location.replace(response.redirect_url)
-  //   }
-  // }, [response])
 
   return (
     <div className="app">

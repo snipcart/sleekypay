@@ -1,19 +1,7 @@
 import { useState } from 'react';
 import { Auth } from '../adapters/paynamics/auth/Auth';
 import { client } from '../adapters/paynamics/client';
-import { BillingInfo } from '../types/billingInfo';
-import { CustomerInfo } from '../types/customerInfo';
-import { OrderDetails } from '../types/orderDetails';
-import { ShippingInfo } from '../types/shippingInfo';
-import { Transaction } from '../types/transaction';
-
-interface TransactionCreatePayload {
-  transaction: Partial<Transaction>;
-  billing_info: Partial<BillingInfo>;
-  shipping_info: Partial<ShippingInfo>;
-  customer_info: Partial<CustomerInfo>;
-  order_details: Partial<OrderDetails>;
-}
+import { TransactionPayload } from '../types/paynamics/transactionPayload';
 
 // TODO: Should only be keys of `Transaction`
 const transactionFieldOrder: string[] = [
@@ -49,7 +37,7 @@ export const useTransaction = () => {
     transaction: { trx_type, ...transaction },
     customer_info,
     ...payload
-  }: TransactionCreatePayload) => {
+  }: TransactionPayload) => {
     setLoading(true);
     try {
       const response = await client(
