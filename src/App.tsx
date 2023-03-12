@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { useEffect } from 'react';
-import './App.css';
+// import './App.css';
 // import { transactionData } from './data/transactionData';
 // import { useTransaction } from './hooks/useTransaction';
 import { Status, PaymentSession } from "./interfaces";
@@ -63,7 +63,7 @@ function App() {
   // }, [response])
 
   return (
-    <div className="App">
+    <div className="app">
       {getContentByStatus(status)}
       <footer className="app__footer">
         <a href={paymentSession?.paymentAuthorizationRedirectUrl || ""} className="link">

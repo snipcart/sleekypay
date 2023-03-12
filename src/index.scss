@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Muli:600,700,800&display=swap");
 
 $color--background: #fafcfc;
-$color--primary: #429bfc;
-$color--complementary: #fc4e42;
+$color--primary: #c0482b;
+$color--complementary: #3d685c;
 
 $size--unit: 5px;
 
@@ -84,10 +84,10 @@ h1, h2 {
     &__footer {
         padding: $size--unit*3;
         background-color: #f0f2f2;
-        width: 100%;
+        // width: 100%;
     }
 }
-
+/** /
 .form {
     @include layer;
 
@@ -197,15 +197,15 @@ h1, h2 {
        }
     }
 }
-
+/**/
 .link {
     color: darken($color--background, 65);
     text-decoration: none;
 
-    display: flex;
-    width: fit-content;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // width: fit-content;
+    // justify-content: center;
+    // align-items: center;
 
     svg {
         height: 16px;
