@@ -12,7 +12,7 @@ export const invoiceToTransaction = ({
 }: Invoice): TransactionPayload => {
   // TODO: Snipcart does not provide a first name and a last last name
   // Assuming it is formatted as "FIRST_NAME LAST_NAME" for now
-  const [firstName, lastName] =( billingAddress?.name ?? "").split("")
+  const [firstName, lastName] =( billingAddress?.name ?? "").split(" ")
 
   return {
     transaction: {
