@@ -23,11 +23,11 @@ interface TransactionData {
 
 
 function App() {
-  const {
-    create,
-    loading,
-    response,
-  } = useTransaction();
+  // const {
+  //   create,
+  //   loading,
+  //   response,
+  // } = useTransaction();
 
   const [paymentSession, setPaymentSession] = useState<PaymentSession>();
   const [status, setStatus] = useState<Status>(Status.Loading)
@@ -37,6 +37,7 @@ function App() {
     const API_URL = process.env.API_URL || 'https://localhost:12666';
     const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/payment-session?publicToken=${jwt}`);
 
+    // setPaymentSession(response)
     if (!response.ok) {
       setStatus(Status.Failed)
       return
@@ -46,92 +47,22 @@ function App() {
     setStatus(Status.Loaded)
   }
 
-/** /
-  const handleClick = () => {
-    // TODO: Update with actual data
-    create(transactionData)
-  }
-/**/
-  // useEffect(() => {
-  //   create(transactionData);
-  // }, []);
+
 
   useEffect(() => { fetchPaymentSession() }, []);
-  
+  useEffect(() => {
+    if (!!paymentSession) {
+      console.log({ paymentSession })
+    }
+  }, [paymentSession])
+
 
   function getContentByStatus(status: Status) {
     switch (status) {
       case Status.Failed:
         return <div className="app__notice">Failed to retrieve invoice, please try again later.</div>
       case Status.Loaded:
-        useEffect(() => {
-          if (paymentSession) {
-            let paymentSessionData: TransactionData = {
-              transaction: {
-                request_id: generate(),
-                notification_url: "https://www.paynamics.com/notify",
-                response_url: "https://www.paynamics.com/response",
-                cancel_url: paymentSession?.paymentAuthorizationRedirectUrl,
-                pchannel: "",
-                pmethod: "",
-                collection_method: "single_pay",
-                payment_notification_status: "1",
-                payment_notification_channel: "1",
-                amount: paymentSession.invoice.amount,
-                currency: paymentSession.invoice.currency,
-                trx_type: "sale",
-              },
-              billing_info: {
-                billing_address1: paymentSession.invoice.billingAddress.streetAndNumber,
-                billing_address2: "test",
-                billing_city: paymentSession.invoice.billingAddress.city,
-                billing_state: paymentSession.invoice.billingAddress.region,
-                billing_country: paymentSession.invoice.billingAddress.country,
-                billing_zip: paymentSession.invoice.billingAddress.postalCode
-              },
-              shipping_info: {
-                shipping_address1: paymentSession.invoice.shippingAddress.streetAndNumber,
-                shipping_address2: "test",
-                shipping_city: paymentSession.invoice.shippingAddress.city,
-                shipping_state: paymentSession.invoice.shippingAddress.region,
-                shipping_country: paymentSession.invoice.shippingAddress.country,
-                shipping_zip: paymentSession.invoice.shippingAddress.postalCode
-              },
-              customer_info: {
-                fname: paymentSession.invoice.billingAddress.name,
-                lname: "surname",
-                mname: "middlename",
-                email: paymentSession.invoice.email,
-                phone: "1234567890",
-                mobile: "1234567890",
-                dob: "",
-              },
-              order_details: {
-                orders: [
-                  {
-                    itemname: "Test product",
-                    quantity: 1,
-                    unitprice: "101.50",
-                    totalprice: "101.50"
-                  },
-                  {
-                    itemname: "Convenience Fee",
-                    quantity: 1,
-                    unitprice: "10.00",
-                    totalprice: "10.00",
-                    servicecharge: true
-                  }
-                ],
-                subtotalprice: "111.50",
-                shippingprice: "0.00",
-                discountamount: "0.00",
-                totalorderamount: "111.50"
-              }
-            };
-            create(paymentSessionData);
-          }
-        }, [paymentSession]);
-        console.log('paymentSession', paymentSession);
+        return <h1>Loaded!</h1>
       case Status.Loading:
         return <div className="app__notice">Preparing order...</div>
     }
