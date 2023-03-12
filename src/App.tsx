@@ -25,9 +25,9 @@ function App() {
 
     const parsedResponse = await response.json()
     setPaymentSession(parsedResponse)
-    setStatus(Status.Loaded)
-
     create(invoiceToTransaction(parsedResponse.invoice))
+
+    setStatus(Status.Loaded)
   }
 
   useEffect(() => { fetchPaymentSession() }, []);
