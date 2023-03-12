@@ -12,6 +12,7 @@ exports.handler = async function (
   callback: Callback) {
 
   const requestBody: RefundPayload = JSON.parse(event.body);
+  console.log('requestBody', requestBody)
 
   console.log(`Refunding ${requestBody.amount}$ on payment ${requestBody.paymentId}.`);
 

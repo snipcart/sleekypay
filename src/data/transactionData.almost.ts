@@ -24,6 +24,7 @@ const fetchPaymentSession = async () => {
 
   try {
     const response = await fetch(`${API_URL}/api/public/custom-payment-gateway/payment-session?publicToken=${publicToken}`)
+    console.log('response', request)
     const paymentSession = response.data
     const currency = paymentSession.invoice.currency
   } catch (e) {
