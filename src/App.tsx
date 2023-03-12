@@ -8,10 +8,11 @@ function App() {
   const {
     create,
     response,
+    error: transactionError,
   } = useTransaction();
 
   const [paymentSession, setPaymentSession] = useState<PaymentSession>();
-  const [hasErrors, setHasErrors] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   async function fetchPaymentSession() {
@@ -21,13 +22,15 @@ function App() {
 
     setLoading(true);
 
+    const parsedResponse = await response.json()
+
     if (!response.ok) {
-      setHasErrors(true);
+      setError('There has been an error processing your cart');
       setLoading(false);
       return
     }
 
-    const parsedResponse = await response.json()
+
     setPaymentSession(parsedResponse)
     create(invoiceToTransaction(parsedResponse.invoice))
   }
@@ -36,15 +39,21 @@ function App() {
 
   // TODO: Refactor to not use `useEffect`
   useEffect(() => {
-    if(!!response?.redirect_url) {
+    if (!!response?.redirect_url) {
       window.location.replace(response.redirect_url)
     }
   }, [response])
 
+  useEffect(() => {
+    if (!!transactionError) {
+      setError(transactionError?.response_message || 'There was an error processing your payment')
+    }
+  }, [transactionError])
+
   return (
     <div className="app">
-      {hasErrors ? (
-        <div className="app__notice">Failed to retrieve invoice, please try again later.</div>
+      {error ? (
+        <div className="app__notice">{`There was an error with your request. ${error}`}</div>
       ) : loading ? (
           <div className="app__notice">Preparing order...</div>
       ) : <></>}

@@ -32,6 +32,7 @@ export const useTransaction = () => {
   const RESOURCE = 'transactions/rpf';
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<any | null>(null)
+  const [error, setError] = useState<any | null>(null)
 
   const create = async ({
     transaction: { trx_type, ...transaction },
@@ -59,10 +60,10 @@ export const useTransaction = () => {
       );
       setResponse(response)
     } catch (e) {
-      // TODO: Handle errors
+      setError(e)
     }
     setLoading(false);
   }
 
-  return { create, loading, response }
+  return { create, loading, response, error }
 }
