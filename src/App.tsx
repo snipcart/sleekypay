@@ -23,16 +23,14 @@ function App() {
       return
     }
 
-    setPaymentSession(await response.json())
+    const parsedResponse = await response.json()
+    setPaymentSession(parsedResponse)
     setStatus(Status.Loaded)
+
+    create(invoiceToTransaction(parsedResponse.invoice))
   }
 
   useEffect(() => { fetchPaymentSession() }, []);
-  useEffect(() => {
-    if (!!paymentSession && !response) {
-      create(invoiceToTransaction(paymentSession.invoice))
-    }
-  }, [paymentSession, create, response])
 
   // TODO: Refactor to not use `useEffect`
   useEffect(() => {
