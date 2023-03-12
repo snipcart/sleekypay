@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 // import { useEffect } from 'react';
-import * as ReactDOM from "react-dom";
 import './App.css';
-import { transactionData } from './data/transactionData';
-import { useTransaction } from './hooks/useTransaction';
+// import { transactionData } from './data/transactionData';
+// import { useTransaction } from './hooks/useTransaction';
 import { Status, PaymentSession } from "./interfaces";
 import Form from "./components/Form";
 
 function App() {
-  const {
-    create,
-    loading,
-    response,
-  } = useTransaction();
+  // const {
+  //   create,
+  //   loading,
+  //   response,
+  // } = useTransaction();
 
   const [paymentSession, setPaymentSession] = useState<PaymentSession>();
   const [status, setStatus] = useState<Status>(Status.Loading)
@@ -50,7 +49,7 @@ function App() {
       case Status.Loaded:
         console.log('invoice', paymentSession.invoice)
         console.log('paymentSessionId', paymentSession.id)
-        create(transactionData)
+        // create(transactionData)
       case Status.Loading:
         return <div className="app__notice">Preparing order...</div>
     }
