@@ -26,6 +26,7 @@ export const invoiceToTransaction = ({
       collection_method: "single_pay",
       payment_notification_status: "1",
       payment_notification_channel: "1",
+      amount: amount.toString(),
       currency,
       trx_type: "sale",
     },
